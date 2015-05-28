@@ -1,2 +1,4 @@
-# Django-Breeze
-Breeze es una aplicación web para visualizar partituras musicales.
+Django Breeze
+===================
+
+Es una aplicación web que te permite visualizar partituras online.
