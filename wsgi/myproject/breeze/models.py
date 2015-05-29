@@ -15,7 +15,8 @@ class tabla_ejemplo (models.Model):
 class usuario (models.Model):  
     user = models.OneToOneField(User)
     #Otros campos para usuario django
-    avatar = models.ImageField(upload_to='images')
+    correo = models.CharField(max_length = 200)
+    cod_avatar = models.CharField(max_length = 50)
     unique_together = (('user'),)
 
 class instrumento (models.Model):

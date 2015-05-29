@@ -1,5 +1,11 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, Http404, HttpResponse
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
+from django.contrib import auth
+from django.contrib.auth.models import User
 from .models import *
 
 #Views de ejemplo
@@ -30,4 +36,29 @@ def db_example(request, codigo):
 
 #Views Breeze:
 def index(request):
-	return render(request, 'index.html')
+	titulo = 'Inicio'
+	return render(request, 'index.html', {'titulo': titulo,})
+
+def signup(request):
+	if request.method == 'POST':
+		#2-Procesar formaulario
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			new_user = form.save()
+			username = form.cleaned_data["username"]
+			#Va la inicio
+			#return HttpResponse(form.cleaned_data["username"])
+			return HttpResponseRedirect('/home/')
+		else:
+			#Pasar errores
+			titulo = 'Registro'
+			return render(request, "signup.html", {'form': form, 'titulo': titulo})
+	else:
+		#1-Envio de formulario
+		titulo = 'Registro'
+		form = UserCreationForm()
+		return render(request, "signup.html", {'form': form, 'titulo': titulo})
+
+@login_required()
+def home(request):
+    return render_to_response('home.html', {'user': request.user}, context_instance=RequestContext(request))

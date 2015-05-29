@@ -2,35 +2,36 @@
 {% include "head.html" %}
 {% include "barra_nav.html" %}
 {% endwith %}
-
+<!-- Comprobar registro -->
+<script type="text/javascript" src="js/comprobar_registro.js"></script>
     <!-- ******************** HeaderWrap ********************-->
-    <div id="headerwrap">
+    <div id="headerblack">
       <header class="clearfix">
-        <h1><span>Breeze</span> Compone y Comparte</h1>
-        <div class="container">
+          <div class="container">
           <div class="row">
             <div class="span12">
-              <h2><a href="/es">Procesar o Añadir Sonido</a>|<a href="/buscar">Buscar </a></h2>
-              <form id="search_form" action="/procesar" method="post">
-              <input type="text" name="titulo" placeholder="Artista - Titulo de Canción ..." class="cform-text" size="40" title="titulo">
+              <h2>Registro</h2>
+              {% block content %}
+              {% if form.errors %}
+                <p>Errores</p>
+                <p>{{ form.errors }}</p>
+                <p>Errores</p>
+              {% endif %}
+              <form id="search_form" action="" method="POST" onSubmit="return validarPasswd()">
+              {% csrf_token %}
+              <input type="text" name="username" id="user" placeholder="Nombre de usuario" class="cform-text" size="40" title="username" maxlength="30">
               <p></p>
-              <textarea name="entrada" rows="3" cols="30" placeholder="Notas Musicales... Ej: mi fa sol la si do re" class="cform-text" size="40" title="entrada"></textarea>
+              <input type="password" name="password1" id="clave1" placeholder="Contraseña" class="cform-text" size="40" title="password">
               <p></p>
-              <input type="checkbox" name="ok_compartir" value="ok_compartir"> Añadir a Breeze<br>
+              <input type="password" name="password2" id="clave2" placeholder="Repite la contraseña anterior" class="cform-text" size="40" title="password">
               <p></p>
-              <input type="submit" value="Procesar" class="cform-submit">
+              <input type="text" name="email" id="email" placeholder="Correo electronico" class="cform-text" size="40" title="email" maxlength="30">
+              <p></p>
+              <input type="submit" value="Crear usuario" class="cform-submit">
               </form>
+              {% endblock %}
             </div>
           </div>
-          <div class="row">
-            <div class="span12">
-              <ul class="icon">
-                <li><a href="https://twitter.com/Zerrotajo" target="_blank"><i class="icon-twitter-circled"></i></a></li>
-                <li><a href="http://www.google.com/intl/es_ALL/+/learnmore/" target="_blank"><i class="icon-gplus-circled"></i></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </header>
     </div>
     <hr>

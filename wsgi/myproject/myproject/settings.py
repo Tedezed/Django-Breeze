@@ -69,7 +69,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ES'
 
 TIME_ZONE = 'UTC'
 
@@ -91,3 +91,11 @@ RUTA_ESTATICA = os.path.join(os.path.dirname(BASE_DIR), 'myproject/breeze/static
 STATICFILES_DIRS = (
     RUTA_ESTATICA,
 )
+
+# Anadidos
+APPEND_SLASH=False
+
+# Redirect when login is correct.
+LOGIN_REDIRECT_URL = "/home/"
+# Redirect when login is not correct.
+LOGIN_URL = '/'
