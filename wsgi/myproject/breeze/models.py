@@ -4,20 +4,31 @@ from django.db import models
 from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 #Modelo de ejemplo
 class tabla_ejemplo (models.Model):  
 	codigo = models.IntegerField(max_length = 10)
 	text = models.CharField(max_length = 140)
 	unique_together = (('codigo'),)
+##################
 
 #Modelos Breeze
 class usuario (models.Model):  
     user = models.OneToOneField(User)
     #Otros campos para usuario django
-    correo = models.CharField(max_length = 200)
     cod_avatar = models.CharField(max_length = 50)
+    filename = models.CharField(max_length=100)
+    docfile = models.FileField(upload_to='img_avatar')
     unique_together = (('user'),)
+
+#Anadir usurio Django a la tabla usuario
+def create_user_profile(sender, instance, created, **kwargs):
+	if created:
+		usuario.objects.create(user=instance)
+
+#Ejecutar para aniadir instancia
+post_save.connect(create_user_profile, sender=User)
 
 class instrumento (models.Model):
 	codigo = models.IntegerField(max_length = 10)

@@ -3,25 +3,20 @@
 {% include "barra_nav.html" %}
 {% endwith %}
 <!-- Comprobar registro -->
-<script type="text/javascript" src="js/comprobar_login.js"></script>
+<script type="text/javascript" src="js/comprobar_registro.js"></script>
     <!-- ******************** HeaderWrap ********************-->
     <div id="headerblack">
       <header class="clearfix">
           <div class="container">
           <div class="row">
             <div class="span12">
-              <h2>Login</h2>
               {% block content %}
-              {% if errors %}
-                <p>{{ errors }}</p>
-              {% endif %}
-              <form id="search_form" action="" method="POST" onSubmit="return validarlogin()">
+              <h3>{{ tipo }}</h3>
+              <p></p>
+              <form action="/uploads/" method="POST" enctype="multipart/form-data">
               {% csrf_token %}
-              <input type="text" name="username" id="user" placeholder="Nombre de usuario" class="cform-text" size="40" title="username" maxlength="30">
-              <p></p>
-              <input type="password" name="password" id="clave1" placeholder="Contraseña" class="cform-text" size="40" title="password">
-              <p></p>
-              <input type="submit" value="Entrar" class="cform-submit">
+              {{ form.as_p }}
+              <input type="submit" value="Subir">
               </form>
               {% endblock %}
             </div>

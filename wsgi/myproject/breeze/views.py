@@ -7,6 +7,7 @@ from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.contrib import auth
 from django.contrib.auth.models import User
+from forms import UploadForm
 from .models import *
 
 #Views de ejemplo
@@ -28,7 +29,7 @@ def template(request, nombre):
 
 def db_example(request, codigo):
 	#text_db = tabla_ejemplo.objects.raw('SELECT codigo FROM tabla_ejemplo WHERE codigo = %s' % codigo)
-	text_db = libros = tabla_ejemplo.objects.order_by('codigo')
+	text_db = tabla_ejemplo.objects.order_by('codigo')
 	#print text_db[0].text
 	for i in text_db:
 		if i.codigo == int(codigo):
@@ -53,7 +54,8 @@ def signup(request):
 			username = form.cleaned_data["username"]
 			#Va la inicio
 			#return HttpResponse(form.cleaned_data["username"])
-			return HttpResponseRedirect('/login/')
+			titulo = 'Registro correcto'
+			return render(request, 'correcto.html', {'titulo': titulo, 'username': username,})
 		else:
 			#Pasar errores
 			titulo = 'Registro'
@@ -63,6 +65,7 @@ def signup(request):
 		titulo = 'Registro'
 		form = UserCreationForm()
 		return render(request, "signup.html", {'form': form, 'titulo': titulo})
+	
 
 def login_view(request):
 	titulo = 'Login'
@@ -89,6 +92,7 @@ def login_view(request):
 	else:
 		return render(request, "login.html", {'titulo': titulo})
 
+@login_required()
 def logout_view(request):
 	logout(request)
 	# Redirect to a success page.
@@ -97,3 +101,25 @@ def logout_view(request):
 @login_required()
 def home(request):
     return render_to_response('home2.html', {'user': request.user}, context_instance=RequestContext(request))
+
+@login_required()
+def name(request):
+	username = request.user
+	return HttpResponse(username)
+
+@login_required()
+def upload_file(request):
+	titulo = 'UpLoad'
+	tipo = 'Subir imagen de perfil'
+	if request.method == 'POST':
+		username = request.user
+		form = UploadForm(request.POST, request.FILES)
+		if form.is_valid():
+			newdoc = usuario(user=username, filename = request.POST['filename'],docfile = request.FILES['docfile'])
+			newdoc.save(form)
+			return redirect("uploads")
+	else:
+		form = UploadForm()
+	#tambien se puede utilizar render_to_response
+	#return render_to_response('upload.html', {'form': form}, context_instance = RequestContext(request))
+	return render(request, 'upload.html', {'titulo':titulo, 'form': form, 'tipo':tipo})
