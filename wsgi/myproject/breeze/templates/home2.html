@@ -10,20 +10,8 @@
           <div class="container">
           <div class="row">
             <div class="span12">
-              <h2>Login</h2>
               {% block content %}
-              {% if errors %}
-                <p>Errores</p>
-                <p>{{ errors }}</p>
-              {% endif %}
-              <form id="search_form" action="" method="POST" onSubmit="return validarPasswd()">
-              {% csrf_token %}
-              <input type="text" name="username" id="user" placeholder="Nombre de usuario" class="cform-text" size="40" title="username" maxlength="30">
-              <p></p>
-              <input type="password" name="password" id="clave1" placeholder="Contraseña" class="cform-text" size="40" title="password">
-              <p></p>
-              <input type="submit" value="Entrar" class="cform-submit">
-              </form>
+              <h2>{{ user.username }}</h2>
               {% endblock %}
             </div>
           </div>

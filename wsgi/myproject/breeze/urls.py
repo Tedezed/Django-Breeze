@@ -23,7 +23,11 @@ urlpatterns = patterns('',
   #Index
   url(r'^$', views.index, name='index'),
   url(r'^registro/$', views.signup, name='signup'),
-  url(r'^login/$', login, {'template_name': 'login.html', }, name="login"),
+  #Dos formas de Login
+  #url(r'^login/$', login, {'template_name': 'login.html', }, name="login"),
+  url(r'^login/$', views.login_view, name="login"),
+  #url(r'^logout/$', logout, {'template_name': 'index.html', }, name="logout"),
+  url(r'^logout/$', views.logout_view, name="logout"),
   url(r'^home/$', views.home, name='home'),
-  url(r'^logout/$', logout, {'template_name': 'index.html', }, name="logout"),
+
 )

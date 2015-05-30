@@ -10,8 +10,13 @@
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <nav class="pull-right nav-collapse collapse">
               <ul id="menu-main" class="nav">
+                {% if user.username %}
+                <li><a title="headerwrap" href="/home/">{{ user.username }}</a></li>
+                <li><a title="headerwrap" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
                 <li><a title="headerwrap" href="/registro/">Registro</a></li>
                 <li><a title="headerwrap" href="/login/">Login</a></li>
+                {% endif %}
               </ul>
             </nav>
           </div>

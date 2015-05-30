@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render, render_to_response
@@ -37,7 +38,11 @@ def db_example(request, codigo):
 #Views Breeze:
 def index(request):
 	titulo = 'Inicio'
-	return render(request, 'index.html', {'titulo': titulo,})
+	if request.user.is_authenticated():
+		# Do something for authenticated users.
+		return render(request, 'index.html', {'user': request.user, 'titulo': titulo,}, context_instance=RequestContext(request))
+	else:
+		return render(request, 'index.html', {'titulo': titulo,})
 
 def signup(request):
 	if request.method == 'POST':
@@ -48,7 +53,7 @@ def signup(request):
 			username = form.cleaned_data["username"]
 			#Va la inicio
 			#return HttpResponse(form.cleaned_data["username"])
-			return HttpResponseRedirect('/home/')
+			return HttpResponseRedirect('/login/')
 		else:
 			#Pasar errores
 			titulo = 'Registro'
@@ -59,6 +64,36 @@ def signup(request):
 		form = UserCreationForm()
 		return render(request, "signup.html", {'form': form, 'titulo': titulo})
 
+def login_view(request):
+	titulo = 'Login'
+	if request.method == 'POST':
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				# Redirect to a success page.
+				return HttpResponseRedirect('/home/')
+			else:
+				# Return a 'disabled account' error message
+				#return HttpResponse("Cuenta desactivada.")
+				errors = "Cuenta desactivada."
+			return render(request, "login.html", {'errors':errors, 'titulo': titulo})
+
+		else:
+			# Return an 'invalid login' error message.
+			#return HttpResponse("Login erroneo.")
+			errors = "Login erroneo."
+			return render(request, "login.html", {'errors':errors, 'titulo': titulo})
+	else:
+		return render(request, "login.html", {'titulo': titulo})
+
+def logout_view(request):
+	logout(request)
+	# Redirect to a success page.
+	return HttpResponseRedirect('/')
+
 @login_required()
 def home(request):
-    return render_to_response('home.html', {'user': request.user}, context_instance=RequestContext(request))
+    return render_to_response('home2.html', {'user': request.user}, context_instance=RequestContext(request))
