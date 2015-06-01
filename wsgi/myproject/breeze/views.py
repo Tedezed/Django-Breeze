@@ -8,7 +8,9 @@ from django.template import RequestContext
 from django.contrib import auth
 from django.contrib.auth.models import User
 from forms import UploadForm
+from django.conf import settings
 from .models import *
+from file_rename import *
 
 #Views de ejemplo
 def home(request):
@@ -55,7 +57,9 @@ def signup(request):
 			#Va la inicio
 			#return HttpResponse(form.cleaned_data["username"])
 			titulo = 'Registro correcto'
-			return render(request, 'correcto.html', {'titulo': titulo, 'username': username,})
+			mensaje = 'Registro correcto del usuario'
+			url = '/login/'
+			return render(request, 'correcto.html', {'titulo': titulo, 'mensaje':mensaje, 'url':url, 'username': username,})
 		else:
 			#Pasar errores
 			titulo = 'Registro'
@@ -65,7 +69,6 @@ def signup(request):
 		titulo = 'Registro'
 		form = UserCreationForm()
 		return render(request, "signup.html", {'form': form, 'titulo': titulo})
-	
 
 def login_view(request):
 	titulo = 'Login'
@@ -100,24 +103,38 @@ def logout_view(request):
 
 @login_required()
 def home(request):
-    return render_to_response('home2.html', {'user': request.user}, context_instance=RequestContext(request))
+	titulo = 'Perfil'
+	return render(request, 'home2.html', {'titulo': titulo, 'user': request.user}, context_instance=RequestContext(request))
 
 @login_required()
 def name(request):
 	username = request.user
-	return HttpResponse(username)
+	#usuario_db = usuario.objects.get(user=username)
+	usuario_db = usuario.objects.order_by("user")
+	return HttpResponse(usuario_db)
+
+def generador(request):
+	return render(request, 'generador_hd.html')
 
 @login_required()
 def upload_file(request):
 	titulo = 'UpLoad'
 	tipo = 'Subir imagen de perfil'
 	if request.method == 'POST':
-		username = request.user
 		form = UploadForm(request.POST, request.FILES)
 		if form.is_valid():
-			newdoc = usuario(user=username, filename = request.POST['filename'],docfile = request.FILES['docfile'])
-			newdoc.save(form)
-			return redirect("uploads")
+			username = request.user
+			filename = str(username)+'avi'
+			usuario.objects.filter(user=username).update(filename = filename, docfile = request.FILES['docfile'])
+			#Renombrar imagen
+			#filename_real = str(request.FILES['docfile'])
+			#auto_rename(settings.MEDIA_ROOT+'/img_avatar/', filename_real, filename)
+			#
+			#Enviar si es correcto
+			titulo = 'Foto correcta'
+			mensaje = 'Foto subida correctamente'
+			url = '/home/'
+			return render(request, 'correcto.html', {'titulo': titulo, 'mensaje':mensaje, 'url':url, 'username': username,})
 	else:
 		form = UploadForm()
 	#tambien se puede utilizar render_to_response

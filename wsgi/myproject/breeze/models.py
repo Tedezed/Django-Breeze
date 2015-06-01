@@ -17,10 +17,12 @@ class tabla_ejemplo (models.Model):
 class usuario (models.Model):  
     user = models.OneToOneField(User)
     #Otros campos para usuario django
-    cod_avatar = models.CharField(max_length = 50)
     filename = models.CharField(max_length=100)
     docfile = models.FileField(upload_to='img_avatar')
     unique_together = (('user'),)
+
+    def __str__(self):
+    	return self.user.username
 
 #Anadir usurio Django a la tabla usuario
 def create_user_profile(sender, instance, created, **kwargs):
@@ -34,6 +36,9 @@ class instrumento (models.Model):
 	codigo = models.IntegerField(max_length = 10)
 	nombre = models.CharField(max_length = 50)
 	unique_together = (('codigo', 'nombre'),)
+
+	def __str__(self):
+		return self.codigo
 
 class partitura (models.Model):
 	codigo = models.IntegerField(max_length = 10)

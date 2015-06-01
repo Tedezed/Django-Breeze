@@ -100,4 +100,4 @@ LOGIN_REDIRECT_URL = "/home/"
 # Redirect when login is not correct.
 LOGIN_URL = '/'
 
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'myproject/breeze/media_root')
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'myproject/breeze/static/media_root')

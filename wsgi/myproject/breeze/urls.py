@@ -29,7 +29,9 @@ urlpatterns = patterns('',
   #url(r'^logout/$', logout, {'template_name': 'index.html', }, name="logout"),
   url(r'^logout/$', views.logout_view, name="logout"),
   url(r'^home/$', views.home, name='home'),
+  #DEBUG
   url(r'^name/$', views.name, name="name"),
+  url(r'^generador/$', views.generador, name="generador"),
   url(r'^uploads/$', views.upload_file, name="uploads"),
 
 )
