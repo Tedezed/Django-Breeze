@@ -61,9 +61,85 @@ input[type=text], input[type=submit], textarea {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 }
+
+
 input, button, select, textarea {
 	font-family: 'Quattrocento', serif;
 }
+
+button:hover, button:active {
+	background: #43413e !important;
+}
+
+button {
+	width: 100%;
+	padding: 0.5em;
+	font-size: 1em;
+	margin-bottom: 1.5em;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+
+button {
+	font-family: 'Patua One', cursive;
+	color: #B43F47;
+	width: 77px;
+	height: 2.9em;
+	font-size: 1.3125em; /* 21px */
+	padding:0.5em;
+	letter-spacing: 0.05em;
+	margin: 1;
+	border: 0;
+	text-transform: none;
+	background: #242424 !important;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+.borrar button {
+	font-family: 'Patua One', cursive;
+	color: #fff;
+	width: 130px;
+	height: 2.9em;
+	font-size: 1.3125em; /* 21px */
+	padding:0.5em;
+	letter-spacing: 0.05em;
+	margin: 1;
+	border: 0;
+	text-transform: none;
+	background: #642C30 !important;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+.dedos button {
+	font-family: 'Patua One', cursive;
+	color: #fff;
+	width: 130px;
+	height: 2.9em;
+	font-size: 1.3125em; /* 21px */
+	padding:0.5em;
+	letter-spacing: 0.05em;
+	margin: 1;
+	border: 0;
+	text-transform: none;
+	background: #642C30 !important;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+input[type=checkbox]:not(old),
+input[type=radio   ]:not(old){
+  width   : 0;
+  margin  : 0;
+  padding : 0;
+  opacity : 0;
+}
+
 /* ---------------------------------------------------------------------------------------------------------- 
 02 Typography -----------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------- */
@@ -513,6 +589,103 @@ section.single-page h1 {
 #headerblack input[type=submit]:hover, #headerblack input[type=submit]:active {
 	background: #43413e !important;
 }
+
+#headerwhite {
+	width: 100%;
+	background:  #000000;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	;
+	min-height: 600px;
+	margin-top: -60px;
+	padding-top:160px;
+	text-align:center;
+}
+
+#headerwhite input[type=text] {
+	background: rgba(040, 040, 040, 1);
+	font-family: 'Open Sans', sans serif;
+	font-size: 1.3125em;
+	border: 0;
+	text-align: center;
+	vertical-align: middle;
+	margin-bottom:0 !important;
+}
+#headerwhite input[type=text]:focus {
+	background: #43413e;
+	color: #eff1ef;
+	transition: background 0.25 ease-in;
+	-moz-transition: background 0.25 ease-in;
+	-webkit-transition: background 0.25 ease-in;
+}
+#headerwhite input[type=text] {
+	height: 3em;
+	width:40%;
+}
+
+#headerwhite input[type=password] {
+	background: rgba(227, 231, 228, 1);
+	font-family: 'Open Sans', sans serif;
+	font-size: 1.3125em;
+	border: 0;
+	text-align: center;
+	vertical-align: middle;
+	margin-bottom:0 !important;
+}
+#headerwhite input[type=password]:focus {
+	background: #43413e;
+	color: #eff1ef;
+	transition: background 0.25 ease-in;
+	-moz-transition: background 0.25 ease-in;
+	-webkit-transition: background 0.25 ease-in;
+}
+#headerwhite input[type=password] {
+	height: 3em;
+	width:50%;
+}
+
+#headerwhite textarea {
+	background: rgba(227, 231, 228, 1);
+	font-family: 'Open Sans', sans serif;
+	font-size: 1.3125em;
+	border: 0;
+	text-align: center;
+	vertical-align: middle;
+	margin-bottom:0 !important;
+}
+#headerwhite textarea:focus {
+	background: #43413e;
+	color: #eff1ef;
+	transition: background 0.25 ease-in;
+	-moz-transition: background 0.25 ease-in;
+	-webkit-transition: background 0.25 ease-in;
+}
+#headerwhite textarea {
+	height: 10em;
+	width:60%;
+}
+#headerwhite input[type=submit] {
+	font-family: 'Patua One', cursive;
+	color: #fff;
+	width: 185px;
+	height: 2.9em;
+	font-size: 1.3125em; /* 21px */
+	padding:0.5em;
+	letter-spacing: 0.05em;
+	margin: 0;
+	border: 0;
+	text-transform: none;
+	background: #F1505A !important;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+#headerwhite input[type=submit]:hover, #headerwhite input[type=submit]:active {
+	background: #43413e !important;
+}
+
 
 /* Portfolio */
 

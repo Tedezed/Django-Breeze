@@ -1,0 +1,31 @@
+{% with tabtitle="Index" %}
+{% include "head.html" %}
+{% include "barra_nav.html" %}
+    <!-- ******************** HeaderWrap ********************-->
+    <div id="headerwrap">
+      <header class="clearfix">
+        <h1><span>Breeze</span> Compone y Comparte</h1>
+        <div class="container">
+          <div class="row">
+            <div class="span12">
+              <form id="search_form" action="/busqueda/" method="post">
+              {% csrf_token %}
+              <input type="text" name="entrada" placeholder="Busqueda..." class="cform-text" size="40" title="entrada">
+              <input type="submit" value="Buscar" class="cform-submit">
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="span12">
+              <ul class="icon">
+                <li><a href="https://twitter.com/Zerrotajo" target="_blank"><i class="icon-twitter-circled"></i></a></li>
+                <li><a href="https://es.linkedin.com/pub/juan-manuel-torres-díaz/b5/69a/14a" target="_blank"><i class="icon-linkedin-circled"></i></a></li>
+                <li><a href="https://github.com/Tedezed" target="_blank"><i class="icon-up-circled"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+{% include "pie.html" %}
+{% endwith %}

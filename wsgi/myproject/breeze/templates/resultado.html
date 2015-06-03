@@ -1,0 +1,32 @@
+{% with tabtitle="Index" %}
+{% include "head.html" %}
+{% include "barra_nav.html" %}
+   <!--******************** Portfolio Section ********************-->
+    <section id="portfolio" class="single-page scrollblock">
+      <div class="container">
+              {% block content %}
+                {% if list_resultados %}
+                  <h1 id="folio-headline">Resultados de busqueda:</h1>
+                  {% for partitura in list_resultados %}
+                    <hgroup>
+                    <div class="row">
+                      <div class="inside">
+                    <h3><a title="headerwrap" href="/partitura/{{ partitura.id }}">{{ partitura.nombre }}</a></h3>
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                  </div>
+                  </div>
+                    </hgroup>
+                  {% endfor %}
+                {% else %}
+                  <h2>No se encontraron partituras</h2>
+                {% endif %}
+              {% endblock %}
+            </div>
+          </div>
+      </header>
+    </div>
+  </div>
+{% include "pie.html" %}
+{% endwith %}

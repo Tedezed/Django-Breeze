@@ -29,9 +29,11 @@ urlpatterns = patterns('',
   #url(r'^logout/$', logout, {'template_name': 'index.html', }, name="logout"),
   url(r'^logout/$', views.logout_view, name="logout"),
   url(r'^home/$', views.home, name='home'),
+  url(r'^generador/$', views.generador, name="generador"),
   #DEBUG
   url(r'^name/$', views.name, name="name"),
-  url(r'^generador/$', views.generador, name="generador"),
+  url(r'^busqueda/$', views.busqueda, name='busqueda'),
+  url(r'^partitura/(?P<p_id>[0-9]+)$', views.mostrar_partitura, name='mostrar_partitura'),
   url(r'^uploads/$', views.upload_file, name="uploads"),
 
 )

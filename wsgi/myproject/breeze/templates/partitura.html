@@ -1,0 +1,54 @@
+{% with tabtitle="Index" %}
+{% include "head.html" %}
+{% include "barra_nav.html" %}
+    <!-- ******************** HeaderWrap ********************-->
+    <div id="portfolio">
+      <header class="clearfix">
+        <div class="container">
+    <!-- ****************** generador ******************-->
+          <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+          <div id="headerblack">
+          <h1>{{ select_partitura.nombre }}</h1>
+          <p></p>
+          <div class="borrar">
+          <button id='partitura'>Partitura</button>
+          <button id='dedos'>Posicion dedos</button>
+          <div class="row">
+          <div class="span12">
+          </div>
+            <script id="jsbin-javascript">
+            $('document').ready(function() {
+                var str = "{{ select_partitura.pentagrama }}";
+                var res = str.split(" ");
+                $('.span12').html($('.span12').html()-'<p>re</p>');
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/keysol.png" WIDTH=73 HEIGHT=200>');
+                for (i = 0; i < res.length-1; i++) {
+                  $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/'+res[i]+'.png" WIDTH=25 HEIGHT=150>');
+                }
+
+              $('#partitura').click(function(env) {
+                var str = "{{ select_partitura.pentagrama }}";
+                var res = str.split(" ");
+                $('.span12').html($('.span12').html()-'<p>re</p>');
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/keysol.png" WIDTH=73 HEIGHT=200>');
+                for (i = 0; i < res.length-1; i++) {
+                  $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/'+res[i]+'.png" WIDTH=25 HEIGHT=150>');
+                }
+              });
+  
+              $('#dedos').click(function(env) {
+                var str = "{{ select_partitura.pentagrama }}";
+                var res = str.split(" ");
+                $('.span12').html($('.span12').html()-'<p>re</p>');
+                for (i = 0; i < res.length-1; i++) {
+                  $('.span12').html($('.span12').html()+'<IMG SRC="img/Notas/'+res[i]+'.png" WIDTH=25 HEIGHT=150>');
+                }
+              });
+
+            });
+          </script>
+      </header>
+      <!-- ****************** generador ******************-->
+    </div>
+{% include "pie.html" %}
+{% endwith %}

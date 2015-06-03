@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -11,6 +14,7 @@ from forms import UploadForm
 from django.conf import settings
 from .models import *
 from file_rename import *
+from funciones import *
 
 #Views de ejemplo
 def home(request):
@@ -38,14 +42,15 @@ def db_example(request, codigo):
 			return HttpResponse(i.text)
 	return HttpResponse("No se encontro nada.")
 
+#####################################################################
 #Views Breeze:
 def index(request):
 	titulo = 'Inicio'
 	if request.user.is_authenticated():
 		# Do something for authenticated users.
-		return render(request, 'index.html', {'user': request.user, 'titulo': titulo,}, context_instance=RequestContext(request))
+		return render(request, 'index2.html', {'user': request.user, 'titulo': titulo,}, context_instance=RequestContext(request))
 	else:
-		return render(request, 'index.html', {'titulo': titulo,})
+		return render(request, 'index2.html', {'titulo': titulo,})
 
 def signup(request):
 	if request.method == 'POST':
@@ -96,27 +101,6 @@ def login_view(request):
 		return render(request, "login.html", {'titulo': titulo})
 
 @login_required()
-def logout_view(request):
-	logout(request)
-	# Redirect to a success page.
-	return HttpResponseRedirect('/')
-
-@login_required()
-def home(request):
-	titulo = 'Perfil'
-	return render(request, 'home2.html', {'titulo': titulo, 'user': request.user}, context_instance=RequestContext(request))
-
-@login_required()
-def name(request):
-	username = request.user
-	#usuario_db = usuario.objects.get(user=username)
-	usuario_db = usuario.objects.order_by("user")
-	return HttpResponse(usuario_db)
-
-def generador(request):
-	return render(request, 'generador_hd.html')
-
-@login_required()
 def upload_file(request):
 	titulo = 'UpLoad'
 	tipo = 'Subir imagen de perfil'
@@ -140,3 +124,85 @@ def upload_file(request):
 	#tambien se puede utilizar render_to_response
 	#return render_to_response('upload.html', {'form': form}, context_instance = RequestContext(request))
 	return render(request, 'upload.html', {'titulo':titulo, 'form': form, 'tipo':tipo})
+
+
+@login_required()
+def logout_view(request):
+	logout(request)
+	# Redirect to a success page.
+	return HttpResponseRedirect('/')
+
+@login_required()
+def home(request):
+	titulo = 'Perfil'
+	username = request.user
+	user_breeze = usuario.objects.get(user=username)
+	usuario_id = user_breeze.id
+	select_partitura = partitura.objects.filter(nombre_usuario_id=usuario_id)
+	return render(request, 'home2.html', {'titulo': titulo, 'user': request.user, 'select_partitura':select_partitura}, context_instance=RequestContext(request))
+
+@login_required()
+def name(request):
+	username = request.user
+	usuario_db = usuario.objects.get(user=username)
+	#usuario_db = usuario.objects.order_by("user")
+	return HttpResponse(usuario_db)
+
+@login_required()
+def generador(request):
+	titulo = 'Generador v.0.1'
+	if request.method == 'POST':
+		form = request.POST
+		#Sacar info del post
+		titulo_cancion = form["titulo-part"]
+		notas_musicales = form["mem_post"]
+		notas_musicales = notas_musicales.replace('NaN','')
+		#
+		##Instanciar usuario
+		username = request.user
+		user_breeze = usuario.objects.get(user=username)
+		partitura.nombre_usuario = user_breeze
+		usuario_id = user_breeze.id
+		##
+		##Instanciar instrumento
+		nom_instrumento = 'TinWhistle'
+		instrumen = instrumento.objects.get(nombre=nom_instrumento)
+		partitura.nombre_instrumento = instrumen
+		instrumento_id = instrumen.id
+		##
+		#Guardar en db
+		p = partitura(nombre = titulo_cancion,
+					nombre_usuario_id = usuario_id,
+					nombre_instrumento_id = instrumento_id,
+					visitas = 0,
+					pentagrama = notas_musicales)
+		username=''
+		try:
+			p.save()
+		except:
+			mensaje = 'Error la partitura %s ya existe' % titulo_cancion
+			url = '/generador/'
+			return render(request, 'correcto.html', {'titulo': titulo, 'mensaje':mensaje, 'url':url, 'username': username,})
+		mensaje = 'Partitura enviada correctamente'
+		url = '/home/'
+		return render(request, 'correcto.html', {'titulo': titulo, 'mensaje':mensaje, 'url':url, 'username': username,})
+	else:
+		return render(request, 'generador_hd.html', {'titulo':titulo})
+
+def busqueda(request):
+	form = request.POST
+	entrada = form["entrada"]
+	results = partitura.objects.all()
+	list_encontrados = []
+	for i in results:
+		resultado = palabras_clave(i.nombre, entrada)
+		if resultado:
+			list_encontrados.append(i.id)
+	list_resultados = partitura.objects.filter(id__in=list_encontrados)
+	titulo = 'Resultados de busqueda'
+	return render(request, 'resultado.html', {'titulo':titulo,'list_resultados':list_resultados})
+
+def mostrar_partitura(request, p_id):
+	select_partitura = partitura.objects.get(id=p_id)
+	titulo = select_partitura.nombre
+	return render(request, 'partitura.html', {'titulo':titulo,'select_partitura':select_partitura})

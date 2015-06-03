@@ -16,7 +16,6 @@ class Migration(migrations.Migration):
             name='comentario',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('codigo', models.IntegerField(max_length=10)),
                 ('text_comentario', models.CharField(max_length=140)),
                 ('fecha_publicacion', models.DateTimeField(auto_now_add=True)),
             ],
@@ -28,7 +27,6 @@ class Migration(migrations.Migration):
             name='instrumento',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('codigo', models.IntegerField(max_length=10)),
                 ('nombre', models.CharField(max_length=50)),
             ],
             options={
@@ -39,12 +37,22 @@ class Migration(migrations.Migration):
             name='partitura',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('codigo', models.IntegerField(max_length=10)),
                 ('nombre', models.CharField(max_length=70)),
-                ('visitas', models.IntegerField(max_length=50)),
-                ('archivo_partitura', models.FileField(upload_to=b'.')),
+                ('visitas', models.IntegerField(default=0, max_length=100)),
+                ('pentagrama', models.CharField(max_length=900)),
                 ('fecha_publicacion', models.DateTimeField(auto_now_add=True)),
-                ('codigo_instrumento', models.ForeignKey(to='breeze.instrumento')),
+                ('nombre_instrumento', models.ForeignKey(to='breeze.instrumento')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='tabla_ejemplo',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('codigo', models.IntegerField(max_length=10)),
+                ('text', models.CharField(max_length=140)),
             ],
             options={
             },
@@ -54,7 +62,8 @@ class Migration(migrations.Migration):
             name='usuario',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('avatar', models.ImageField(upload_to=b'images')),
+                ('filename', models.CharField(max_length=100)),
+                ('docfile', models.FileField(upload_to=b'img_avatar')),
                 ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -65,7 +74,6 @@ class Migration(migrations.Migration):
             name='valoracion',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('codigo', models.IntegerField(max_length=10)),
                 ('tipo', models.IntegerField(max_length=1)),
                 ('codigo_partitura', models.ForeignKey(to='breeze.partitura')),
                 ('codigo_usuario', models.ForeignKey(to='breeze.usuario')),
@@ -76,7 +84,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='partitura',
-            name='codigo_usuario',
+            name='nombre_usuario',
             field=models.ForeignKey(to='breeze.usuario'),
             preserve_default=True,
         ),

@@ -1,137 +1,144 @@
-    <!DOCTYPE HTML>
-    <html lang="en">
-    <head>
-    <meta charset="utf-8">
-    <title>Breeze - {{ tituloh }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link rel='stylesheet' id='prettyphoto-css'  href="css/prettyPhoto.css" type='text/css' media='all'>
-    <link href="css/fontello.css" type="text/css" rel="stylesheet">
-    <!--[if lt IE 7]>
-            <link href="css/fontello-ie7.css" type="text/css" rel="stylesheet">  
-        <![endif]-->
-    <!-- Google Web fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Quattrocento:400,700' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <style>
-    body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-    }
-    </style>
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="img/favicon.ico">
-    <!-- JQuery -->
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <!-- Load ScrollTo -->
-    <script type="text/javascript" src="js/jquery.scrollTo-1.4.2-min.js"></script>
-    <!-- Load LocalScroll -->
-    <script type="text/javascript" src="js/jquery.localscroll-1.2.7-min.js"></script>
-    <!-- prettyPhoto Initialization -->
-    <script type="text/javascript" charset="utf-8">
-          $(document).ready(function(){
-            $("a[rel^='prettyPhoto']").prettyPhoto();
-          });
-        </script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    </head>
-    <body>
-    <!--******************** NAVBAR ********************-->
-    <div class="navbar-wrapper">
-      <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-          <div class="container">
-            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </a>
-            <h1 class="brand"><a href="/">Breeze</a></h1>
-            <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
-            <nav class="pull-right nav-collapse collapse">
-              <ul id="menu-main" class="nav">
-                <li><a title="headerwrap" href="#headerwrap">Index</a></li>
-              </ul>
-            </nav>
-          </div>
-          <!-- /.container -->
-        </div>
-        <!-- /.navbar-inner -->
-      </div>
-      <!-- /.navbar -->
-    </div>
-    <!-- /.navbar-wrapper -->
-    <div id="top"></div>
+{% with tabtitle="Index" %}
+{% include "head.html" %}
+{% include "barra_nav.html" %}
     <!-- ******************** HeaderWrap ********************-->
     <div id="portfolio">
       <header class="clearfix">
-        <h2>{{ tituloh }}</h2>
-        <p></p>
         <div class="container">
+    <!-- ****************** generador ******************-->
+          <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+          <div id="headerwhite">
+          <h2>Generador de partitura v0.1</h2>
+          <p></p>
+
           <button id='nota_do'>do</button>
           <button id='nota_re'>re</button>
-          <button id='borrar'>borrar todo</button>
+          <button id='nota_mi'>mi</button>
+          <button id='nota_fa'>fa</button>
+          <button id='nota_sol'>sol</button>
+          <button id='nota_la'>la</button>
+          <button id='nota_si'>si</button>
+          <button id='nota_doa'>do+</button>
+          <button id='nota_rea'>re+</button>
+          <button id='nota_mia'>mi+</button>
+          <button id='nota_faa'>fa+</button>
+          <button id='nota_sola'>sol+</button>
+          <button id='nota_laa'>la+</button>
+          <button id='nota_sia'>si+</button>
+          <div class="borrar">
+          <button id='nota_na'>espacio</button>
+          <button id='borrar' >borrar todo</button>
+        </div>
             <script id="jsbin-javascript">
             $('document').ready(function() {
+              $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/keysol.png" WIDTH=73 HEIGHT=200>');
 
               $('#nota_do').click(function(env) {
-                $('.span12').html($('.span12').html()+'<IMG SRC="img/Notas/do.png" WIDTH=25 HEIGHT=150>');
-                $('.memoria').html($('.memoria').html()+'do');
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/do.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'do ');
               });
   
               $('#nota_re').click(function(env) {
-                $('.span12').html($('.span12').html()+'<IMG SRC="img/Notas/re.png" WIDTH=25 HEIGHT=150>');
-                $('.memoria').html($('.memoria').html()+'re');
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/re.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'re ');
               });
+
+              $('#nota_mi').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/mi.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'mi ');
+              });
+
+              $('#nota_fa').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/fa.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'fa ');
+              });
+
+              $('#nota_sol').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/sol.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'sol ');
+              });
+
+              $('#nota_la').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/la.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'la ');
+              });
+
+              $('#nota_si').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/si.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'si ');
+                $('#mem_post').val($('#mem_post').val()+'si ');
+              });
+
+              
+
+
+
+
+
+              $('#nota_doa').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/do+.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'do+ ');
+              });
+  
+              $('#nota_rea').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/re+.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'re+ ');
+              });
+
+              $('#nota_mia').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/mi+.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'mi+ ');
+              });
+
+              $('#nota_faa').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/fa+.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'fa+ ');
+              });
+
+              $('#nota_sola').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/sol+.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'sol+ ');
+              });
+
+              $('#nota_laa').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/la+.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'la+ ');
+              });
+
+              $('#nota_sia').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/si+.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'si+ ');
+              });                
+
+              $('#nota_na').click(function(env) {
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/na.png" WIDTH=25 HEIGHT=150>');
+                $('#mem_post').val($('#mem_post').val()+'na ');
+              });                
+
 
               $('#borrar').click(function(env) {
                 $('.span12').html($('.span12').html()-'<p>re</p>');
-                $('.memoria').html($('.memoria').html()-'re');
+                $('#mem_post').val($('#mem_post').val()-'re');
+                $('.span12').html($('.span12').html()+'<IMG SRC="img/pentagrama/keysol.png" WIDTH=73 HEIGHT=200>');
               });
             });
           </script>
-          <div class="row">
-            <div class="span12">
-            </div>
-          <h1>memoria</h1>
-      <div class="memoria">
-      </div>
+      <div class="row">
+      <form id="generador" action="" method="POST">
+          {% csrf_token %}
+          <div class="span12">
           </div>
-        </div>
+          <input id="mem_post" class="mem_post" type="radio" name="mem_post" value="" checked>
+          <p></p>
+          <p></p>
+          <input type="text" name="titulo-part" id="titulo-part" placeholder="Titulo partitura" class="cform-text" size="40" title="titulo-part" maxlength="30">
+          <p></p>
+          <input type="submit" value="Enviar" class="cform-submit">
+    </form>
+    </div>
       </header>
+
+      <!-- ****************** generador ******************-->
     </div>
-    <hr>
-    <div class="footer-wrapper">
-      <div class="container">
-        <footer>
-          <small>&copy; 2014 Breeze By: Tedezed.</small>
-        </footer>
-      </div>
-      <!-- ./container -->
-    </div>
-    <!-- Loading the javaScript at the end of the page -->
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/jquery.prettyPhoto.js"></script>
-    <script type="text/javascript" src="js/site.js"></script>
-    
-    <!--ANALYTICS CODE-->
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-29231762-1']);
-    _gaq.push(['_setDomainName', 'dzyngiri.com']);
-    _gaq.push(['_trackPageview']);
-  
-    (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
-    </body>
-    </html>
+{% include "pie.html" %}
+{% endwith %}
